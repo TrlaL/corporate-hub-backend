@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import { google } from 'googleapis'
 
 const SPREADSHEET_ID = '1qrYkjYTnDpkRTHSN4u3422jhq9g18qxE_sOCC9wwBaY'
@@ -6,6 +7,8 @@ const SHEET_NAME = 'Лист1'
 
 const app = express()
 const port = 3000
+
+app.use(cors())
 
 const auth = new google.auth.GoogleAuth({
   keyFile: 'key.json',
