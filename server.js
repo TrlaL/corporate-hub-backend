@@ -3,7 +3,6 @@ import cors from 'cors'
 import { google } from 'googleapis'
 
 const SPREADSHEET_ID = '1qrYkjYTnDpkRTHSN4u3422jhq9g18qxE_sOCC9wwBaY'
-const SHEET_NAME = 'Лист1'
 
 const app = express()
 const port = 3000
@@ -16,14 +15,18 @@ const auth = new google.auth.GoogleAuth({
 })
 
 app.get('/api/sheet', async (req, res) => {
-  try {
-    const sheets = google.sheets({ version: 'v4', auth })
-    const response = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: SHEET_NAME })
-    res.json(response.data.values)
-  } catch (error) {
-    res.status(500)
+  if (req.query.range) {
+    try {
+      const sheets = google.sheets({ version: 'v4', auth })
+      const response = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: req.query.range })
+      res.json(response.data.values)
+    } catch (error) {
+      res.status(500)
+    }
+  } else {
+    res.status(400)
   }
-});
+})
 
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);
