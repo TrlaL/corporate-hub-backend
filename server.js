@@ -15,16 +15,17 @@ const auth = new google.auth.GoogleAuth({
 })
 
 app.get('/api/sheet', async (req, res) => {
-  if (req.query.range) {
-    try {
+  try {
+    const { range, spreadsheetId } = req.query
+    if (range && spreadsheetId) {
       const sheets = google.sheets({ version: 'v4', auth })
       const response = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: req.query.range })
       res.json(response.data.values)
-    } catch (error) {
-      res.status(500)
+    } else {
+      res.status(400).json({ error: 'Параметры range и spreadsheetId обязательны.' })
     }
-  } else {
-    res.status(400)
+  } catch (error) {
+    res.status(500).json({ error: 'Не удалось получить данные!' })
   }
 })
 
