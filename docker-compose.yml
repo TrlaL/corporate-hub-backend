@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
-  app:
+  corporate-hub-backend:
+    container_name: corporate-hub-backend
     build: ./
     ports:
       - 3000:3000
