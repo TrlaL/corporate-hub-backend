@@ -2,8 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import { google } from 'googleapis'
 
-const SPREADSHEET_ID = '1qrYkjYTnDpkRTHSN4u3422jhq9g18qxE_sOCC9wwBaY'
-
 const app = express()
 const port = 3000
 
