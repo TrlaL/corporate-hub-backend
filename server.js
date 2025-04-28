@@ -32,7 +32,7 @@ app.get('/api/sheet', async (req, res) => {
 // Чтение SSL сертификата и ключа
 const options = {
   key: fs.readFileSync('./ssl/cubicmedia.ru.key'),
-  cert: fs.readFileSync('./ssl/cubicmedia.ru.cert')
+  cert: fs.readFileSync('./ssl/cubicmedia.ru.crt')
 }
 
 // Создание HTTPS сервера
