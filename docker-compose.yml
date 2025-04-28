@@ -5,5 +5,6 @@ services:
     ports:
       - 3000:3000
     volumes:
+      - ./ssl:/app/ssl
       - ./key.json:/app/key.json
     restart: unless-stopped
