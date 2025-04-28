@@ -17,7 +17,7 @@ app.get('/api/sheet', async (req, res) => {
     const { range, spreadsheetId } = req.query
     if (range && spreadsheetId) {
       const sheets = google.sheets({ version: 'v4', auth })
-      const response = await sheets.spreadsheets.values.get({ spreadsheetId: SPREADSHEET_ID, range: req.query.range })
+      const response = await sheets.spreadsheets.values.get({ range, spreadsheetId })
       res.json(response.data.values)
     } else {
       res.status(400).json({ error: 'Параметры range и spreadsheetId обязательны.' })
