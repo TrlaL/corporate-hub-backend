@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import { google } from 'googleapis'
+import https from 'https'
+import fs from 'fs'
 
 const app = express()
 const port = 3000
@@ -27,6 +29,13 @@ app.get('/api/sheet', async (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`Сервер запущен на http://localhost:${port}`);
+// Чтение SSL сертификата и ключа
+const options = {
+  key: fs.readFileSync('./ssl/cubicmedia.ru.key'),
+  cert: fs.readFileSync('./ssl/cubicmedia.ru.cert')
+}
+
+// Создание HTTPS сервера
+https.createServer(options, app).listen(port, () => {
+  console.log(`Сервер запущен на https://localhost:${port}`)
 })
